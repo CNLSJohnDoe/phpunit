@@ -501,20 +501,23 @@ class PHPUnit_Util_Configuration
             // See https://github.com/sebastianbergmann/phpunit/issues/277
             switch ($array) {
                 case 'var':
-                    $target = &$GLOBALS;
+                    foreach ($configuration[$array] as $name => $value) {
+                        global $$name;
+                        $$name = $value;
+                    }
                     break;
 
                 case 'server':
-                    $target = &$_SERVER;
+                    foreach ($configuration[$array] as $name => $value) {
+                        $_SERVER[$name] = $value;
+                    }
                     break;
 
                 default:
-                    $target = &$GLOBALS['_' . strtoupper($array)];
+                    foreach ($configuration[$array] as $name => $value) {
+                        $GLOBALS['_' . strtoupper($array)][$name] = $value;
+                    }
                     break;
-            }
-
-            foreach ($configuration[$array] as $name => $value) {
-                $target[$name] = $value;
             }
         }
 

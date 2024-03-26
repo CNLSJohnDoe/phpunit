@@ -157,7 +157,8 @@ class PHPUnit_TextUI_TestRunner extends PHPUnit_Runner_BaseTestRunner
     public function doRun(PHPUnit_Framework_Test $suite, array $arguments = [], $exit = true)
     {
         if (isset($arguments['configuration'])) {
-            $GLOBALS['__PHPUNIT_CONFIGURATION_FILE'] = $arguments['configuration'];
+            global $__PHPUNIT_CONFIGURATION_FILE;
+            $__PHPUNIT_CONFIGURATION_FILE = $arguments['configuration'];
         }
 
         $this->handleConfiguration($arguments);
@@ -165,7 +166,8 @@ class PHPUnit_TextUI_TestRunner extends PHPUnit_Runner_BaseTestRunner
         $this->processSuiteFilters($suite, $arguments);
 
         if (isset($arguments['bootstrap'])) {
-            $GLOBALS['__PHPUNIT_BOOTSTRAP'] = $arguments['bootstrap'];
+            global $__PHPUNIT_BOOTSTRAP;
+            $__PHPUNIT_BOOTSTRAP = $arguments['bootstrap'];
         }
 
         if ($arguments['backupGlobals'] === false) {
