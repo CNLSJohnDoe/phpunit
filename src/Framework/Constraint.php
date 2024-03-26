@@ -77,6 +77,7 @@ abstract class PHPUnit_Framework_Constraint implements Countable, PHPUnit_Framew
      *
      * @return int
      */
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return 1;
