@@ -136,7 +136,8 @@ class PHPUnit_Util_GlobalState
                     }
 
                     $result .= sprintf(
-                        '$GLOBALS[\'%s\'][\'%s\'] = %s;' . "\n",
+                        'global $%s; $%s[\'%s\'] = %s;' . "\n",
+                        $superGlobalArray,
                         $superGlobalArray,
                         $key,
                         self::exportVariable($GLOBALS[$superGlobalArray][$key])
@@ -151,7 +152,8 @@ class PHPUnit_Util_GlobalState
         foreach (array_keys($GLOBALS) as $key) {
             if (!in_array($key, $blacklist) && !$GLOBALS[$key] instanceof Closure) {
                 $result .= sprintf(
-                    '$GLOBALS[\'%s\'] = %s;' . "\n",
+                    'global $%s; $%s = %s;' . "\n",
+                    $key,
                     $key,
                     self::exportVariable($GLOBALS[$key])
                 );

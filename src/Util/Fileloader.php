@@ -59,7 +59,8 @@ class PHPUnit_Util_Fileloader
 
         foreach ($newVariableNames as $variableName) {
             if ($variableName != 'oldVariableNames') {
-                $GLOBALS[$variableName] = $newVariables[$variableName];
+                global $$variableName;
+                $$variableName = $newVariables[$variableName];
             }
         }
 
